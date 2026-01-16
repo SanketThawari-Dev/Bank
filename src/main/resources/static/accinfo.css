@@ -1,0 +1,67 @@
+/* Global background */
+body {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.6),
+        rgba(0, 0, 0, 0.6)
+    ),
+    url("bgfinal.png") no-repeat center center fixed;
+    background-size: cover;
+    font-family: "Merriweather", serif;
+}
+
+/* Page title */
+#head {
+    margin-top: 50px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Main card */
+.account-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* Info blocks */
+.info-box {
+    background: rgba(0, 0, 0, 0.35);
+    padding: 15px 18px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+
+/* Labels */
+.info-label {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #ffc107;
+    margin-bottom: 4px;
+}
+
+/* Values */
+.info-value {
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    word-break: break-word;
+}
+
+/* Back button */
+#back-btn {
+    margin: 40px auto;
+    display: block;
+    width: fit-content;
+    padding: 10px 26px;
+    font-size: 16px;
+    border-radius: 30px;
+}
