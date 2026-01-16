@@ -1,0 +1,74 @@
+body {
+    background: linear-gradient(
+        rgba(0,0,0,0.6),
+        rgba(0,0,0,0.6)
+    ),
+    url("bgimage.jpg") no-repeat center center fixed;
+    background-size: cover;
+    font-family: "Merriweather", serif;
+}
+
+/* Page heading */
+#head {
+    margin-top: 50px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* Signup card */
+.signup-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+    color: #fff;
+}
+
+/* Labels */
+.signup-card label {
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+/* Inputs */
+.signup-card .form-control {
+    border-radius: 10px;
+}
+
+/* Section titles */
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 25px;
+    color: #ffc107;
+}
+
+/* Radio options */
+.form-check {
+    margin-top: 6px;
+}
+
+/* Button */
+.signup-btn {
+    margin-top: 30px;
+    width: 100%;
+    border-radius: 30px;
+    font-weight: 600;
+}
+
+/* Footer link */
+.signup-footer {
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+.signup-footer a {
+    color: #ffc107;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.signup-footer a:hover {
+    text-decoration: underline;
+}
