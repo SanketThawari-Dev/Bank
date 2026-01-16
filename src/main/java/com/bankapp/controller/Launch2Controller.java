@@ -1,42 +1,52 @@
 package com.bankapp.controller;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.bankapp.config.ConnectionFactory;
 import com.bankapp.dao.AccountDao;
 import com.bankapp.entity.Account;
 
 @Controller
 public class Launch2Controller {
 
-    Connection con = ConnectionFactory.getCon();
+    @Autowired
+    private DataSource dataSource;
 
     AccountDao acDao = new AccountDao();
 
     @PostMapping("/login")
     public String login(HttpServletRequest req) {
 
-        String uid = req.getParameter("uid");
-        String upass = req.getParameter("upass");
+        try (Connection con = dataSource.getConnection()) {
 
-        String res = acDao.checkUser(con, uid, upass);
-        Account account = acDao.readAccount(con, uid);
+            String uid = req.getParameter("uid");
+            String upass = req.getParameter("upass");
 
-        HttpSession session = req.getSession();
-        req.getSession().removeAttribute("msg");
+            String res = acDao.checkUser(con, uid, upass);
+            Account account = acDao.readAccount(con, uid);
 
-        if ("exits".equals(res)) {
-            session.setAttribute("check", uid);
-            session.setAttribute("ac", account);
-            return "redirect:/account.jsp";
-        } else {
-            session.setAttribute("msg", "Invalid Userid or password");
+            HttpSession session = req.getSession();
+            session.removeAttribute("msg");
+
+            if ("exits".equals(res)) {
+                session.setAttribute("check", uid);
+                session.setAttribute("ac", account);
+                return "redirect:/account.jsp";
+            } else {
+                session.setAttribute("msg", "Invalid Userid or password");
+                return "redirect:/login.jsp";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.getSession().setAttribute("msg", "Internal server error");
             return "redirect:/login.jsp";
         }
     }
