@@ -3,34 +3,45 @@ package com.bankapp.controller;
 import java.sql.Connection;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.bankapp.config.ConnectionFactory;
 import com.bankapp.dao.Transac_his_dao;
 import com.bankapp.entity.TxnHistory;
 
 @Controller
 public class Launch7Controller {
 
-    Connection con = ConnectionFactory.getCon();
+    @Autowired
+    private DataSource dataSource;
 
     Transac_his_dao txnDao = new Transac_his_dao();
 
     @GetMapping("/readtxn")
     public String readTxn(HttpServletRequest req) {
 
+        HttpSession session = req.getSession();
         String id = req.getParameter("uid");
 
-        List<TxnHistory> al = txnDao.readTxn(con, id);
+        try (Connection con = dataSource.getConnection()) {
 
-        HttpSession session = req.getSession();
-        session.setAttribute("check", id);
-        session.setAttribute("al", al);
+            List<TxnHistory> al = txnDao.readTxn(con, id);
 
-        return "redirect:/readtxn.jsp";
+            session.setAttribute("check", id);
+            session.setAttribute("al", al);
+
+            return "redirect:/readtxn.jsp";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("msg", "Internal server error");
+            return "redirect:/account.jsp";
+        }
     }
 }
