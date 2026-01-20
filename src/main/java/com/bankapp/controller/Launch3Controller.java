@@ -11,7 +11,7 @@ public class Launch3Controller {
     @GetMapping("/logout")
     public String logout(HttpServletRequest req) {
 
-        req.getSession().removeAttribute("check");
-        return "redirect:/login.jsp";
+        req.getSession().invalidate(); // better than removing one attribute
+        return "redirect:/login";
     }
 }
