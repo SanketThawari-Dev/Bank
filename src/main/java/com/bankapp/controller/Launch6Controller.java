@@ -1,7 +1,6 @@
 package com.bankapp.controller;
 
 import java.sql.Connection;
-
 import javax.sql.DataSource;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,16 +43,18 @@ public class Launch6Controller {
                 session.setAttribute("check", uid);
                 session.setAttribute("ac", account);
                 session.setAttribute("msg", "Money Transferred");
-                return "redirect:/account.jsp";
+
+                // ✅ redirect to controller
+                return "redirect:/account";
             } else {
                 session.setAttribute("msg", "Insufficient funds");
-                return "redirect:/account.jsp";
+                return "redirect:/account";
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             session.setAttribute("msg", "Internal server error");
-            return "redirect:/account.jsp";
+            return "redirect:/account";
         }
     }
 }
