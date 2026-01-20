@@ -36,12 +36,13 @@ public class Launch7Controller {
             session.setAttribute("check", id);
             session.setAttribute("al", al);
 
-            return "redirect:/readtxn.jsp";
+            // ✅ redirect to controller
+            return "redirect:/transactions";
 
         } catch (Exception e) {
             e.printStackTrace();
             session.setAttribute("msg", "Internal server error");
-            return "redirect:/account.jsp";
+            return "redirect:/account";
         }
     }
 }
