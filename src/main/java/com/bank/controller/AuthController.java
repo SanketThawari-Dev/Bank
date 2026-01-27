@@ -60,7 +60,7 @@ public class AuthController {
     }
 
     // Launch3.java
-    @GetMapping("/logout")
+    @PostMapping("/login")
     public String logout(HttpSession session) {
         session.removeAttribute("check");
         return "redirect:/login.jsp";
