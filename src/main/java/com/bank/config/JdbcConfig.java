@@ -10,7 +10,7 @@ public class JspConfig {
     @Bean
     public InternalResourceViewResolver jspViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/jsp/");
+        resolver.setPrefix("/webapp/");
         resolver.setSuffix(".jsp");
         return resolver;
     }
