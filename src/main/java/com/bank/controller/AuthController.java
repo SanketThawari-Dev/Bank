@@ -22,47 +22,35 @@ public class AuthController {
         this.transactionService = transactionService;
     }
 
-    // Launch1.java
-    @PostMapping("/signup")
-    public String signup(HttpServletRequest req, HttpSession session) {
-
-        String uid = req.getParameter("uid");
-
-        transactionService.createTxnTable(uid);
-        String res = accountService.insert(req);
-
-        if ("inserted".equals(res)) {
-            session.setAttribute("msg", "Account created");
-            return "redirect:/login.jsp";
-        }
-
-        session.setAttribute("msg", "Account Creation Failed");
-        return "redirect:/signup.jsp";
+    // 👉 Open login page
+    @GetMapping("/loginu")
+    public String loginPage() {
+        return "login";
     }
 
-    // Launch2.java
+    // 👉 Handle login submit
     @PostMapping("/login")
-    public String login(HttpServletRequest req, HttpSession session) {
+    public String login(HttpServletRequest request, HttpSession session) {
 
-        session.removeAttribute("msg");
+        String uid = request.getParameter("uid");
+        String upass = request.getParameter("upass");
 
-        String uid = req.getParameter("uid");
-        String upass = req.getParameter("upass");
+        String result = accountService.checkUser(uid, upass);
 
-        if ("exits".equals(accountService.checkUser(uid, upass))) {
+        if ("exists".equals(result)) {
             session.setAttribute("check", uid);
             session.setAttribute("ac", accountService.readAccount(uid));
-            return "redirect:/account.jsp";
+            return "redirect:/accountu";
         }
 
-        session.setAttribute("msg", "Invalid Userid or password");
-        return "redirect:/login.jsp";
+        request.setAttribute("msg", "Invalid Credentials");
+        return "login";
     }
 
-    // Launch3.java
-    @PostMapping("/login")
+    // 👉 Logout (MUST NOT be /login)
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.removeAttribute("check");
-        return "redirect:/login.jsp";
+        session.invalidate();
+        return "redirect:/loginu";
     }
 }
