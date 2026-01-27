@@ -1,6 +1,4 @@
-TxnHistory.java
-
-package com.Entity;
+package com.bank.entity;
 
 public class TxnHistory {
 	String acno;
